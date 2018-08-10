@@ -3,7 +3,7 @@
 void RPS::play(account_name playerName, uint8_t rps, const asset& bet) {
   require_auth2(playerName, N(active));
   eosio_assert(rps < 3, "Wrong rps");
-  eosio_assert( bet.symbol == symbol_type(S(4, EOS))), "only core token allowed" );
+  eosio_assert( bet.symbol == symbol_type(S(4, EOS)), "only core token allowed" );
   eosio_assert( bet.is_valid(), "invalid bet" );
   eosio_assert( bet.amount > 0, "must bet positive quantity" );
   player_table players(_self, _self);
