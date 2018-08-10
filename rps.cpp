@@ -9,6 +9,11 @@ void RPS::play(account_name playerName, uint8_t rps, const asset& bet) {
   player_table players(_self, _self);
   auto idx = players.template get_index<N(getBet)>();
   auto matched_player_itr = idx.lower_bound( (uint64_t) bet.amount );
+  action(
+    permission_level{ playerName, N(active) },
+    N(eosio.token), N(transfer),
+    std::make_tuple(playerName, _self, bet, std::string(""))
+  ).send();
   if( matched_player_itr == idx.end()) {
     players.emplace(_self, [&](auto& p){
       p.playername = playerName;
@@ -34,7 +39,7 @@ void RPS::play(account_name playerName, uint8_t rps, const asset& bet) {
       action(
         permission_level{ _self, N(active) },
         N(eosio.token), N(transfer),
-        std::make_tuple(_self, (account_name) "kennybennett", bet, std::string(""))
+        std::make_tuple(_self, N(kennybennett), bet, std::string(""))
       ).send();
     }
     auto lookup = players.find(matched_player_itr->playername);
