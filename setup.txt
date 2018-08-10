@@ -1,0 +1,1 @@
+cleos set account permission game active '{"threshold": 1,"keys": [{"key": "EOS6SD1EjcDhed823bYCBaW5E8Fb8rAHdH59JeQxJqpyAoWBf5oaX","weight": 1}],"accounts": [{"permission":{"actor":"game","permission":"eosio.code"},"weight":1}]}' owner -p game
