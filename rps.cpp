@@ -11,7 +11,6 @@ void RPS::play(account_name playerName, uint8_t rps, const asset& bet) {
   auto matched_player_itr = idx.lower_bound( (uint64_t) bet.amount );
   if( matched_player_itr == idx.end()) {
     players.emplace(_self, [&](auto& p){
-      p.id = players.available_primary_key();
       p.playername = playerName;
       p.rps = rps;
       p.bet = bet.amount;
@@ -38,7 +37,7 @@ void RPS::play(account_name playerName, uint8_t rps, const asset& bet) {
         std::make_tuple(_self, (account_name) "kennybennett", bet, std::string(""))
       ).send();
     }
-    auto lookup = players.find(matched_player_itr->id);
+    auto lookup = players.find(matched_player_itr->playername);
     players.erase(lookup);
   }
 };

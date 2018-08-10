@@ -14,11 +14,10 @@ class RPS : public contract {
   private:
     // @abi table player i64
     struct player {
-      uint64_t id;
       account_name playername;
       uint8_t rps;
       uint64_t bet;
-      auto primary_key() const { return id; }
+      uint64_t primary_key() const { return playername; }
       uint64_t get_bet() const { return bet; }
       EOSLIB_SERIALIZE(player, (playername)(rps)(bet))
     };
